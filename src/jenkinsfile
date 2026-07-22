@@ -24,6 +24,7 @@ pipeline {
           reuseNode true
           // Mount workspace automatically by Jenkins' docker plugin
         }
+      }
       steps {
         sh '''
           node -v
