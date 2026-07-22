@@ -15,7 +15,15 @@ pipeline {
     }
 
     stage('Build') {
-      agent any
+      agent {
+        // Requires Jenkins container to be able to talk to the Docker daemon (step 4).
+        docker {
+          image 'node:20-alpine'
+          // If your build needs git, add it:
+          // args '-u root:root'
+          reuseNode true
+          // Mount workspace automatically by Jenkins' docker plugin
+        }
       steps {
         sh '''
           node -v
