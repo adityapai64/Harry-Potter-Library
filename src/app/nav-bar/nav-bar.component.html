@@ -1,0 +1,13 @@
+<nav class="navbar">
+    <ul class="nav-tabs">
+        <li><a [routerLink]="['/list']" routerLinkActive="active-link">Choose Books</a></li>
+        <li><a routerLink="/addons">Choose Add ons</a></li>
+        <li><a routerLink="/invoice">View Invoice</a></li>
+    </ul>
+    <div class="cart">
+        <a routerLink="/cart" class="cart-icon">
+            🛒
+            <span class="badge"> {{ this.diagonAlley.booksInCart().length }}</span>
+        </a>
+    </div>
+</nav>

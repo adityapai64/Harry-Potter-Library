@@ -1,0 +1,36 @@
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Detail</th>
+                <th>Information</th>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td>{{diagonAlley.selectedBook()?.title}}</td>
+            </tr>
+            <tr>
+                <td>Original Title</td>
+                <td>{{diagonAlley.selectedBook()?.originalTitle}}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{diagonAlley.selectedBook()?.description}}</td>
+            </tr>
+            <tr>
+                <td>Number of Pages</td>
+                <td>{{diagonAlley.selectedBook()?.pages}}</td>
+            </tr>
+            <tr>
+                <td>Release Date</td>
+                <td>{{diagonAlley.selectedBook()?.releaseDate}}</td>
+            </tr>
+        </table>
+
+        <!-- Book Cover -->
+        <div class="image-container">
+            <img [src]="diagonAlley.selectedBook()?.cover" alt="Book Cover">
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,27 @@
+.book-list {
+    padding: 20px;
+  }
+  
+  .book-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .book-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .book-title {
+    font-weight: bold;
+  }
+  
+  .book-price {
+    color: green;
+  }
+  
+  .book-addons {
+    margin-top: 10px;
+  }
+  

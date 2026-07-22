@@ -1,0 +1,30 @@
+<div>
+  <button class="button button-large" (click)="selectLanguage()">Choose Language</button>
+</div>
+@if(this.diagonAlley.books().length > 0){
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Title</th>
+        <th>Number of Pages</th>
+        <th>Release Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (book of this.diagonAlley.books(); track book.index) {
+        <tr>
+          <td>{{ book.index }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.pages }}</td>
+          <td>{{ book.releaseDate | date:'shortDate' }}</td>
+          <td>
+            <button class="button" [routerLink]="['/details']" (click)="diagonAlley.setSelectedBook(book.index)">Details</button>
+            <button class="button" (click)="diagonAlley.addBookToCart(book)">Add to cart</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

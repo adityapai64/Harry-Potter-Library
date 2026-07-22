@@ -1,0 +1,18 @@
+<div class="book-list">
+    @for(book of this.diagonAlley.booksInCart(); track book.index){
+        <div class="book-item">
+          <div class="book-info">
+            <span class="book-title">{{ book.title }}</span>
+            <span class="book-price">{{book.price | currency}}</span>
+          </div>
+          <div class="book-addons">
+            <label>
+              <input type="checkbox" (change)="diagonAlley.wandBookmarkSelected(book)" [checked]="book.wandBookmark"/> Wand Bookmark
+            </label>
+            <label>
+              <input type="checkbox"  (change)="diagonAlley.hardcoverSelected(book)" [checked]="book.hardCover"/> Hardcover
+            </label>
+          </div>
+        </div>
+    }
+  </div>  

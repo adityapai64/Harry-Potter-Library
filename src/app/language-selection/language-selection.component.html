@@ -1,0 +1,5 @@
+<div class="button-grid">
+        @for(language of diagonAlley.availableLanguages(); track $index){
+        <button class="grid-button" [mat-dialog-close]="language">{{language | languageAcronymPipe}}</button>
+    }
+</div>
