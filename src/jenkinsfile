@@ -14,7 +14,7 @@ pipeline {
           $class: 'GitSCM',
           branches: [[name: '*/main']],
           userRemoteConfigs: [[
-            url: 'https://github.com/YOUR_ORG/YOUR_REPO.git'
+            url: 'https://github.com/adityapai64/Harry-Potter-Library'
           ]]
         ])
       }
