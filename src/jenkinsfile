@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
   options {
     timestamps()
@@ -8,7 +8,6 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      agent any
       steps {
         checkout([
           $class: 'GitSCM',
@@ -21,25 +20,19 @@ pipeline {
     }
 
     stage('Build') {
-      agent any
       steps {
-        script {
-          docker.image('node:20-alpine').inside('-u root:root') {
-            sh '''
-              node -v
-              npm -v
-              npm ci
-              npm test
-              npm run lint
-              npm run build
-            '''
-          }
-        }
+        sh '''
+          node -v
+          npm -v
+          npm ci
+          npm test
+          npm run lint
+          npm run build
+        '''
       }
     }
 
     stage('Archive build artifacts') {
-      agent any
       steps {
         archiveArtifacts artifacts: 'dist/**', fingerprint: true, onlyIfSuccessful: true
       }
