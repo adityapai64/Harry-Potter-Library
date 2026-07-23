@@ -6,6 +6,10 @@ pipeline {
     disableConcurrentBuilds()
   }
 
+  tools {
+    nodejs 'Recent NodeJS'
+  }
+
   stages {
     stage('Checkout') {
       steps {
