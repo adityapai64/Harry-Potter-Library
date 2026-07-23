@@ -53,19 +53,25 @@ pipeline {
             sh '''
             echo "Workspace:"
             pwd
-            echo "Top-level:"
             ls -la
-            echo "Searching for output folders:"
-            find . -maxdepth 4 -type d \( -name dist -o -name build \) -print || true
+
+            echo "Find dist dirs:"
+            find . -maxdepth 6 -type d -name dist -print || true
+
+            echo "Find build dirs:"
+            find . -maxdepth 6 -type d -name build -print || true
+
+            echo "List top 3 levels (for quick visual):"
+            find . -maxdepth 3 -type d -print
             '''
 
-            // Archive any Angular output no matter whether it's dist/ or dist/<app>/
             archiveArtifacts artifacts: '**/dist/**,**/build/**',
                             fingerprint: true,
                             onlyIfSuccessful: true,
                             allowEmptyArchive: true
         }
     }
+
   }
 
   post {
