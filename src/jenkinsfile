@@ -48,10 +48,13 @@ pipeline {
     }
 
     stage('Archive build artifacts') {
-      steps {
-        archiveArtifacts artifacts: 'dist/**', fingerprint: true, onlyIfSuccessful: true
-      }
+    agent any
+    steps {
+        sh 'ls -la dist || true'
+        archiveArtifacts artifacts: 'dist/**/*', fingerprint: true, onlyIfSuccessful: true
     }
+}
+
   }
 
   post {
