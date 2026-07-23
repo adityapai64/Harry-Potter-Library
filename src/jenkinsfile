@@ -10,29 +10,30 @@ pipeline {
     stage('Checkout') {
       agent any
       steps {
-        checkout scm
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: '*/main']],
+          userRemoteConfigs: [[
+            url: 'https://github.com/YOUR_ORG/YOUR_REPO.git'
+          ]]
+        ])
       }
     }
 
     stage('Build') {
       agent {
-        // Requires Jenkins container to be able to talk to the Docker daemon (step 4).
         docker {
           image 'node:20-alpine'
-          // If your build needs git, add it:
-          // args '-u root:root'
           reuseNode true
-          // Mount workspace automatically by Jenkins' docker plugin
         }
       }
       steps {
         sh '''
           node -v
           npm -v
-          npm ci #short for npm clean install
+          npm ci
           npm test
           npm run lint
-
           npm run build
         '''
       }
@@ -47,11 +48,7 @@ pipeline {
   }
 
   post {
-    success {
-      echo "Build succeeded."
-    }
-    failure {
-      echo "Build failed."
-    }
+    success { echo "Build succeeded." }
+    failure { echo "Build failed." }
   }
 }
