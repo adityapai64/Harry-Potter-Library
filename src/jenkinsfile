@@ -21,18 +21,23 @@ pipeline {
     }
 
     stage('Build') {
-      agent any
-      steps {
-        sh '''
-          node -v
-          npm -v
-          npm ci
-          npm test
-          npm run lint
-          npm run build
-        '''
-      }
+        agent any
+        steps {
+            script {
+                docker.image('node:20-alpine').inside('-u root:root') {
+                    sh '''
+                    node -v
+                    npm -v
+                    npm ci
+                    npm test
+                    npm run lint
+                    npm run build
+                    '''
+                }   
+            }
+        }
     }
+
 
     stage('Archive build artifacts') {
       agent any
@@ -40,7 +45,6 @@ pipeline {
         archiveArtifacts artifacts: 'dist/**', fingerprint: true, onlyIfSuccessful: true
       }
     }
-  }
 
   post {
     success { echo "Build succeeded." }
