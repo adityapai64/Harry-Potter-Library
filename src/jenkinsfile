@@ -26,7 +26,10 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
-          export CHROME_BIN=/usr/bin/chromium  
+          export CHROME_BIN=/usr/bin/chromium
+          export CHROME_ARGS="--no-sandbox --disable-setuid-sandbox"
+          export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"  
+          
           node -v
           npm -v
           npm ci
