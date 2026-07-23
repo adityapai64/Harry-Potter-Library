@@ -26,10 +26,17 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
-          export CHROME_BIN=/usr/bin/chromium
-          export CHROME_ARGS="--no-sandbox --disable-setuid-sandbox"
-          export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"  
-          
+          set -e
+
+          # Always run Chromium with sandbox disabled (required when running as root)
+          cat > /usr/local/bin/chromium-no-sandbox <<'EOF'
+          #!/bin/sh
+          exec /usr/bin/chromium --no-sandbox --disable-setuid-sandbox "$@"
+          EOF
+          chmod +x /usr/local/bin/chromium-no-sandbox
+
+          export CHROME_BIN=/usr/local/bin/chromium-no-sandbox  
+
           node -v
           npm -v
           npm ci
