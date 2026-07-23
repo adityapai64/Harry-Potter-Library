@@ -6,6 +6,10 @@ pipeline {
     disableConcurrentBuilds()
   }
 
+  tools {
+    nodejs 'Recent NodeJS'
+  }
+
   stages {
     stage('Checkout') {
       steps {
@@ -22,7 +26,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
-          export CHROME_BIN=/usr/bin/chromium
+          export CHROME_BIN=/usr/bin/chromium  
           node -v
           npm -v
           npm ci
