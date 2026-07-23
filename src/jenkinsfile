@@ -50,30 +50,22 @@ pipeline {
     stage('Archive build artifacts') {
         agent any
         steps {
-                sh '''
-                echo "Workspace:"
-                pwd
-                echo "Top-level:"
-                ls -la
-                echo "dist candidates:"
-                find . -maxdepth 3 -type d -name dist -print || true
-                echo "build candidates:"
-                find . -maxdepth 3 -type d -name build -print || true
-        '''
+            sh '''
+            echo "Workspace:"
+            pwd
+            echo "Top-level:"
+            ls -la
+            echo "Searching for output folders:"
+            find . -maxdepth 4 -type d \( -name dist -o -name build \) -print || true
+            '''
 
-                // Archive whichever exists
-                script {
-                def patterns = ['dist/**', 'dist/*/**', 'build/**', 'build/*/**']
-                def matched = false
-                for (p in patterns) {
-                    def count = sh(script: "ls -1 ${p} >/dev/null 2>&1; echo $?", returnStdout: true).trim()
-                    // simpler fallback: just try glob existence via find
-                }
-                archiveArtifacts artifacts: 'dist/**/*,build/**/*', fingerprint: true, onlyIfSuccessful: true, allowEmptyArchive: true
-                }
-            }
+            // Archive any Angular output no matter whether it's dist/ or dist/<app>/
+            archiveArtifacts artifacts: '**/dist/**,**/build/**',
+                            fingerprint: true,
+                            onlyIfSuccessful: true,
+                            allowEmptyArchive: true
         }
-
+    }
   }
 
   post {
