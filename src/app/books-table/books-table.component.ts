@@ -1,6 +1,6 @@
 import { Component, Inject, inject } from '@angular/core';
 import { DiagonAlley } from '../diagon-alley.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LanguageSelectionComponent } from '../language-selection/language-selection.component';
@@ -9,7 +9,7 @@ import { Book } from '../models/book.model';
 @Component({
   selector: 'app-books-table',
   standalone: true,
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, CurrencyPipe, RouterLink],
   templateUrl: './books-table.component.html',
   styleUrl: './books-table.component.css'
 })
