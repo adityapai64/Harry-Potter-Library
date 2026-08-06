@@ -15,8 +15,6 @@ import { Book } from '../models/book.model';
 })
 export class BooksTableComponent {
   constructor() {
-    //Test to run Jenkins pipeline on push to GitHub
-    console.log("BooksTableComponent constructor called");
   }
   protected diagonAlley = inject(DiagonAlley);
   private dialog = inject(MatDialog)
