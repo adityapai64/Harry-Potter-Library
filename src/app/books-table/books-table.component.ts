@@ -14,8 +14,9 @@ import { Book } from '../models/book.model';
   styleUrl: './books-table.component.css'
 })
 export class BooksTableComponent {
-  constructor(){
-    
+  constructor() {
+    //Test to run Jenkins pipeline on push to GitHub
+    console.log("BooksTableComponent constructor called");
   }
   protected diagonAlley = inject(DiagonAlley);
   private dialog = inject(MatDialog)
